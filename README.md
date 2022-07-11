@@ -1,4 +1,4 @@
-# InsureFi
+# InsureFinance
 
 Insure Fi is a blockchain based car insurance decentralized application that allows users to buy car insurance and be able to file claims and get instant payout.
 
