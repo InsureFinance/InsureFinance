@@ -1,12 +1,12 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { Col, Container, Row, Spacer, Text } from '@nextui-org/react';
-import { ConnectButton } from '@components/connect-button';
-import { Logo } from '@components/logos';
-import { MobileMenu } from '@components/mobile-menu';
-import { NavItem } from '@components/nav-item';
-import { useMediaQuery } from '@hooks';
-import { StyledHeader, StyledNavContainer } from './header.styles';
-import type { FC } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+import { Col, Container, Row, Spacer, Text } from "@nextui-org/react";
+import { ConnectButton } from "@components/connect-button";
+import { Logo } from "@components/logos";
+import { MobileMenu } from "@components/mobile-menu";
+import { NavItem } from "@components/nav-item";
+import { useMediaQuery } from "@hooks";
+import { StyledHeader, StyledNavContainer } from "./header.styles";
+import type { FC } from "react";
 
 export const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const {} = props;
@@ -14,8 +14,13 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   useEffect(() => {
-    setScrollPosition((typeof window !== 'undefined' && window.scrollY) || 0);
+    disableLoggers();
   }, []);
+
+  const disableLoggers = () => {
+    console.log("Logs disabled");
+    setScrollPosition((typeof window !== "undefined" && window.scrollY) || 0);
+  };
 
   const onScroll = useCallback(() => {
     if (window.scrollY >= 0 && window.scrollY <= 500) {
@@ -26,9 +31,9 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', onScroll.bind(this));
+    window.addEventListener("scroll", onScroll.bind(this));
     return () => {
-      window.removeEventListener('scroll', onScroll.bind(this));
+      window.removeEventListener("scroll", onScroll.bind(this));
     };
   }, [onScroll]);
 
@@ -40,19 +45,19 @@ export const Header: FC<HeaderProps> = (props: HeaderProps) => {
     <Fragment>
       <StyledHeader as="header">
         <StyledNavContainer detached={detached} showBlur={detached}>
-          <Container as="nav" css={{ py: '$lg' }} display="flex" wrap="nowrap" justify="space-between" alignItems="center" md>
+          <Container as="nav" css={{ py: "$lg" }} display="flex" wrap="nowrap" justify="space-between" alignItems="center" md>
             {isMobile ? (
               <MobileMenu />
             ) : (
               <Col>
                 <Row justify="flex-start" align="center">
                   <NavItem href="/">
-                    <Logo css={{ size: '$14' }} />
+                    <Logo css={{ size: "$14" }} />
                   </NavItem>
                 </Row>
               </Col>
             )}
-            <Col css={{ '@xsMax': { display: 'none' } }}>
+            <Col css={{ "@xsMax": { display: "none" } }}>
               <Row justify="center" align="center">
                 <NavItem href="/">
                   <Text span size="1.1rem">

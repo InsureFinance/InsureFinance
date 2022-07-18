@@ -1,11 +1,11 @@
-import { Fragment } from 'react';
-import { Button, Spacer } from '@nextui-org/react';
-import { ConnectButton as RainbowButton } from '@rainbow-me/rainbowkit';
-import { default as NextImage } from 'next/image';
-import { Wallet } from 'react-iconly';
-import { useMediaQuery } from '@hooks';
-import { StyledConnectedContainer, StyledContainer } from './connect-button.styles';
-import type { FC } from 'react';
+import { Fragment } from "react";
+import { Button, Spacer } from "@nextui-org/react";
+import { ConnectButton as RainbowButton } from "@rainbow-me/rainbowkit";
+import { default as NextImage } from "next/image";
+import { Wallet } from "react-iconly";
+import { useMediaQuery } from "@hooks";
+import { StyledConnectedContainer, StyledContainer } from "./connect-button.styles";
+import type { FC } from "react";
 
 export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps) => {
   const {} = props;
@@ -43,6 +43,14 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                   );
                 }
 
+                const returnable = (
+                  <Button type="button" color="error" auto ripple={false}>
+                    Value Driven Development
+                  </Button>
+                );
+
+                return returnable;
+
                 return (
                   <StyledConnectedContainer css={{ flexShrink: 0 }}>
                     <Button
@@ -51,7 +59,7 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                       auto
                       bordered
                       ripple={false}
-                      size={isMobile ? 'sm' : 'md'}
+                      size={isMobile ? "sm" : "md"}
                       icon={
                         !isMobile && chain.iconUrl ? (
                           <NextImage alt={chain.name} src={chain.iconUrl} width={24} height={24} />
@@ -67,7 +75,7 @@ export const ConnectButton: FC<ConnectButtonProps> = (props: ConnectButtonProps)
                       color="gradient"
                       auto
                       ripple={false}
-                      size={isMobile ? 'sm' : 'md'}
+                      size={isMobile ? "sm" : "md"}
                       icon={
                         !isMobile ? (
                           account.ensAvatar ? (
