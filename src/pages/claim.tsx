@@ -1,28 +1,29 @@
-import { Fragment, useMemo, useState } from 'react';
-import { Button, Col, Grid, Loading, Modal, Row, Text } from '@nextui-org/react';
-import { ethers } from 'ethers';
-import { default as NextHead } from 'next/head';
-import { useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { ClaimForm, ClaimHero } from '@components';
-import claimABI from '@lib/abi/Claims.json';
-import type { ClaimFormData } from '@components';
-import type { TransactionReceipt } from '@ethersproject/providers';
-import type { NextPage } from 'next';
+import { Fragment, useMemo, useState } from "react";
+import { Button, Col, Grid, Loading, Modal, Row, Text } from "@nextui-org/react";
+import { ethers } from "ethers";
+import { default as NextHead } from "next/head";
+import { useContractRead, useContractWrite, useWaitForTransaction } from "wagmi";
+import { ClaimForm, ClaimHero } from "@components";
+import claimABI from "@lib/abi/Claims.json";
+import type { ClaimFormData } from "@components";
+import type { TransactionReceipt } from "@ethersproject/providers";
+import type { NextPage } from "next";
 
 const claimContractConfig = {
-  addressOrName: '0x92a5B68B469B726c2Ee71Ba80EbEd0f56c8Ad3E3',
+  addressOrName: "0x92a5B68B469B726c2Ee71Ba80EbEd0f56c8Ad3E3",
   contractInterface: claimABI
 };
 
 const ClaimPage: NextPage = () => {
+  const { NO_NAME } = process.env;
   const [isVisible, setVisible] = useState<boolean>(false);
   const [data, setData] = useState<TransactionReceipt & ClaimFormData>();
 
-  const getClaim = useContractRead(claimContractConfig, 'getClaims');
+  const getClaim = useContractRead(claimContractConfig, "getClaims");
 
-  const payout = useContractWrite(claimContractConfig, 'makePayout', {
+  const payout = useContractWrite(claimContractConfig, "makePayout", {
     onSettled: async (_, error) => {
-      error && console.log('Payout onSettled error:', error);
+      error && console.log("Payout onSettled error:", error);
     }
   });
 
@@ -36,7 +37,7 @@ const ClaimPage: NextPage = () => {
   });
 
   const onClaimError = async (error: Error) => {
-    console.log('onClaimError:', error);
+    console.log("onClaimError:", error);
   };
 
   const onClaimSuccess = async (data: TransactionReceipt & ClaimFormData) => {
@@ -65,7 +66,7 @@ const ClaimPage: NextPage = () => {
         onSuccess={(data: TransactionReceipt & ClaimFormData) => onClaimSuccess(data)}
       />
       <Modal open={isVisible} blur closeButton aria-labelledby="payout-modal">
-        <Modal.Header css={{ flexDirection: 'column' }}>
+        <Modal.Header css={{ flexDirection: "column" }}>
           <Text size={24} b>
             Paying out
           </Text>
@@ -109,7 +110,7 @@ const ClaimPage: NextPage = () => {
               <Row>
                 <Col>Payout amount:</Col>
                 <Col>
-                  {typeof getClaim.data === 'undefined' || getClaim.isLoading ? (
+                  {typeof getClaim.data === "undefined" || getClaim.isLoading ? (
                     <Loading color="currentColor" size="sm" />
                   ) : (
                     <Text color="primary">{(+ethers.utils.formatEther(getClaim.data)).toFixed(2)} ETH</Text>
@@ -120,8 +121,8 @@ const ClaimPage: NextPage = () => {
           </Grid.Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="button" color="gradient" size="lg" auto ripple={false} css={{ width: '100%' }} onClick={() => payoutHandler()}>
-            {isLoading ? <Loading color="currentColor" size="sm" /> : 'Payout'}
+          <Button type="button" color="gradient" size="lg" auto ripple={false} css={{ width: "100%" }} onClick={() => payoutHandler()}>
+            {isLoading ? <Loading color="currentColor" size="sm" /> : "Payout"}
           </Button>
         </Modal.Footer>
       </Modal>

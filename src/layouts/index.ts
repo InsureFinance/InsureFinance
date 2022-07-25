@@ -1,1 +1,2 @@
-export * from './basic-layout';
+// Default Export
+export * from "./basic-layout";
