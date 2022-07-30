@@ -1,10 +1,10 @@
-import { Fragment, useCallback, useEffect, useState } from 'react';
-import { Button, Card, Col, Grid, Row, Spacer, Text } from '@nextui-org/react';
-import { useDropzone } from 'react-dropzone';
-import { Delete } from 'react-iconly';
-import { useMediaQuery } from '@hooks';
-import { StyledCard } from './dnd-uploader.styles';
-import type { FC } from 'react';
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { Button, Card, Col, Grid, Row, Spacer, Text } from "@nextui-org/react";
+import { useDropzone } from "react-dropzone";
+import { Delete } from "react-iconly";
+import { useMediaQuery } from "@hooks";
+import { StyledCard } from "./dnd-uploader.styles";
+import type { FC } from "react";
 
 export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
   const { onChange } = props;
@@ -17,6 +17,7 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
   }, [onChange, files]);
 
   const onDropHandler = useCallback((acceptedFiles: File[]) => {
+    console.log(acceptedFiles);
     if (Array.isArray(acceptedFiles) && acceptedFiles.length > 0) {
       setFiles((prev: File[] | undefined) => {
         if (!prev) return [...acceptedFiles];
@@ -30,7 +31,7 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
     noClick: true,
     noKeyboard: true,
     accept: {
-      'image/*': ['.jpeg', '.png']
+      "image/*": [".jpeg", ".png"]
     }
   });
 
@@ -43,12 +44,12 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
 
   return (
     <Fragment>
-      <StyledCard isDragActive={isDragActive} css={{ $$cardColor: 'transparent' }} {...getRootProps({ className: 'dropzone' })}>
-        <Card.Body css={{ dflex: 'center' }}>
+      <StyledCard isDragActive={isDragActive} css={{ $$cardColor: "transparent" }} {...getRootProps({ className: "dropzone" })}>
+        <Card.Body css={{ dflex: "center" }}>
           {isDragActive ? (
-            <Text css={{ color: '$accents6' }}>Drop the files here ...</Text>
+            <Text css={{ color: "$accents6" }}>Drop the files here ...</Text>
           ) : (
-            <Text css={{ color: '$accents6' }}>Drag drop some files here or click to select files</Text>
+            <Text css={{ color: "$accents6" }}>Drag drop some files here or click to select files</Text>
           )}
 
           {fileRejections && fileRejections.length !== 0 && <Text color="warning">Only image files will be accepted</Text>}
@@ -59,7 +60,7 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
           {files && files?.length !== 0 && (
             <Fragment>
               <Spacer x={2} />
-              <Grid.Container css={{ p: '0' }} gap={2} justify="flex-start">
+              <Grid.Container css={{ p: "0" }} gap={2} justify="flex-start">
                 {files.map((file: File, index: number) => (
                   <Grid key={`${file.name}-${index}`} xs={6} sm={4} md={3}>
                     <Card cover>
@@ -69,18 +70,18 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
                       <Card.Footer
                         blur
                         css={{
-                          position: 'absolute',
-                          bgBlur: '#808080',
-                          borderTop: '$borderWeights$light solid rgba(255, 255, 255, 0.1)',
+                          position: "absolute",
+                          bgBlur: "#808080",
+                          borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.1)",
                           bottom: 0,
                           zIndex: 1
                         }}
                       >
                         <Row justify="space-between" align="center">
                           {!isMobile && (
-                            <Col css={{ flex: 1, minWidth: 110, '@xsMax': { minWidth: 30 } }}>
+                            <Col css={{ flex: 1, minWidth: 110, "@xsMax": { minWidth: 30 } }}>
                               <Text
-                                css={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+                                css={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}
                                 size={12}
                                 weight="bold"
                                 transform="uppercase"
@@ -88,7 +89,7 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
                                 {file.name}
                               </Text>
                               <Text
-                                css={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+                                css={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}
                                 size={12}
                                 transform="uppercase"
                               >
@@ -104,7 +105,7 @@ export const DndUploader: FC<DndUploaderProps> = (props: DndUploaderProps) => {
                                 flat
                                 rounded
                                 ripple={false}
-                                size={isMobile ? 'sm' : 'md'}
+                                size={isMobile ? "sm" : "md"}
                                 icon={!isMobile ? <Delete primaryColor="currentColor" set="curved" /> : undefined}
                                 onClick={() => deleteHandler(index)}
                               >
